@@ -1,19 +1,23 @@
 import traceback
 import logging
+import os
 
 import tornado.web
 import tornado.ioloop
 
 from requests import *
+import cfg
 
 
 def get_application():
     try:
         settings = {
+            "static_path": os.path.join(cfg.root, "static"),
             "debug": True
         }
         application = tornado.web.Application([
             (r'/start/?', StartRequest),
+            (r'/?', StartPage),
         ], **settings)
 
         return application

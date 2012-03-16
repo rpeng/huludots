@@ -17,6 +17,7 @@ class TemplateRequest(RequestHandler):
         rendered = template.generate(**kwargs)
         self.write(rendered)
 
+
 class StartRequest(TemplateRequest):
 
     def _generate_id(self):
@@ -30,6 +31,7 @@ class StartRequest(TemplateRequest):
             'game_token':game_id
         })
 
+
 class StartPage(TemplateRequest):
     def get(self):
-        self.render_template('Start.html')
+        self.render_template('start.html', width=5, height=5)
