@@ -1,9 +1,9 @@
 .wrapper {
-    background-color: #ffc;
 }
 
 .board {
     margin: auto;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
@@ -23,7 +23,11 @@
     width: 5px;
 }
 
-.edge-cell:hover {
+.clickable {
+    background-color: #eee;
+}
+
+.clickable:hover {
     background-color: blue;
 }
 
@@ -35,5 +39,5 @@
 }
 
 .activated {
-    background-color: red;
+    background-color: green;
 }
