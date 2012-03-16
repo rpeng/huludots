@@ -30,4 +30,6 @@ class StartRequest(TemplateRequest):
             'game_token':game_id
         })
 
-
+class StartPage(TemplateRequest):
+    def get(self):
+        self.render_template('Start.html')
