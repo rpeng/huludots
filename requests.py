@@ -1,10 +1,10 @@
 import os
 
-import memcache
 from tornado.template import Loader
 from tornado.web import RequestHandler
 
 import cfg
+from lib import session_maker
 
 
 class TemplateRequest(RequestHandler):
@@ -18,13 +18,13 @@ class TemplateRequest(RequestHandler):
         self.write(rendered)
 
 class StartRequest(TemplateRequest):
-    _mc = memcache.Client(['127.0.0.1:11211'])
 
     def _generate_id(self):
         return os.urandom(40).encode('base64').rstrip()
 
     def get(self):
         game_id = self._generate_id()
+        session_maker.new_session(game_id)
         self.write({
             'status':'ok',
             'game_token':game_id
