@@ -1,3 +1,4 @@
+{% import cfg %}
 <!Doctype html>
 <html>
     <head>
@@ -7,20 +8,32 @@
     <body>
         <div class="wrapper">
             <table class="board">
-                {% for x in xrange(width * 2 - 1) %}
+                {% set board_width = cfg.game_cols * 2 - 1 %} 
+                {% set board_height = cfg.game_rows * 2 - 1 %} 
+                {% for x in xrange(board_width) %}
                 <col class="{{'square-col' if x % 2 else 'edge-col'}}">
                 {% end %}
-                {% for y in xrange(height * 2 - 1) %}
+                {% for y in xrange(board_height) %}
                 <tr class="{{'square-row' if y % 2 else 'edge-row'}}">
-                    {% for x in xrange(width * 2 - 1) %}
+                    {% for x in xrange(board_width) %}
+                        {% set edge_class = '' %}
                         {% if (x + y) % 2 %}
                             {% set cell_class="edge-cell" %}
+                            {% if y % 2 %}
+                                {% if board.edge_cols[x//2][y//2].is_active %}
+                                    {%set edge_class="activated" %}
+                                {% end %}
+                            {% else %}
+                                {% if board.edge_rows[x//2][y//2].is_active %}
+                                    {%set edge_class="activated" %}
+                                {% end %}
+                            {% end %}
                         {% elif y % 2 %}
                             {% set cell_class="square-cell" %}
                         {% else %}
                             {% set cell_class="dot-cell" %}
                         {% end %}
-                        <td class="{{ cell_class }}">
+                        <td class="{{cell_class}} {{edge_class}}">
                         </td>
                     {% end %}
                 </tr>

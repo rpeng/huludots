@@ -34,3 +34,6 @@
 .square-cell {
 }
 
+.activated {
+    background-color: red;
+}

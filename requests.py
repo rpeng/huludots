@@ -5,6 +5,7 @@ from tornado.web import RequestHandler
 
 import cfg
 from lib import session_maker
+from models.DotsGame import create_new_game
 
 
 class TemplateRequest(RequestHandler):
@@ -34,4 +35,5 @@ class StartRequest(TemplateRequest):
 
 class StartPage(TemplateRequest):
     def get(self):
-        self.render_template('start.html', width=5, height=5)
+        board = create_new_game()
+        self.render_template('start.html', board=board)
