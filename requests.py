@@ -6,11 +6,11 @@ from tornado.web import RequestHandler
 
 import cfg
 from lib import session_maker
-from models.DotsGame import create_new_game
+
 
 class MoveRequest(RequestHandler):
-    def post(self):
-        print self.request.arguments
+    def post(self, game_token):
+        self.write(game_token)
 
 class TemplateRequest(RequestHandler):
 
@@ -32,10 +32,11 @@ class StartRequest(TemplateRequest):
     def get(self):
         game_id = self._generate_id()
         session_maker.new_session(game_id)
-        self.redirect('/game/'+game_id)
+        self.redirect('/game/' + game_id + '/')
 
 
 class GamePage(TemplateRequest):
+
     def get(self, game_token):
         board = session_maker.load_session(str(game_token))
-        self.render_template('start.html', board=board)
+        self.render_template('game.html', board=board)
