@@ -1,0 +1,31 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>HuluDots</title>
+        <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <table class="board">
+                {% for x in xrange(width * 2 - 1) %}
+                <col class="{{'square-col' if x % 2 else 'edge-col'}}">
+                {% end %}
+                {% for y in xrange(height * 2 - 1) %}
+                <tr class="{{'square-row' if y % 2 else 'edge-row'}}">
+                    {% for x in xrange(width * 2 - 1) %}
+                        {% if (x + y) % 2 %}
+                            {% set cell_class="edge-cell" %}
+                        {% elif y % 2 %}
+                            {% set cell_class="square-cell" %}
+                        {% else %}
+                            {% set cell_class="dot-cell" %}
+                        {% end %}
+                        <td class="{{ cell_class }}">
+                        </td>
+                    {% end %}
+                </tr>
+                {% end %}
+            </table>
+        </div>
+    </body>
+</html>
