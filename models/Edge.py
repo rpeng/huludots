@@ -18,6 +18,19 @@ class HorizontalEdge(Edge):
         Edge.__init__(self)
 
 class Square:
+
+    def true_active(self, edge):
+        if edge.is_active:
+            return 1
+        return 0
+
+    def repr_num(self):
+        num = self.true_active(self.top_edge)+\
+                self.true_active(self.right_edge)*2+\
+                self.true_active(self.bottom_edge)*4+\
+                self.true_active(self.left_edge)*8
+        return num
+
     def link_edges(self, left_edge, right_edge, top_edge, bottom_edge):
         self.left_edge = left_edge # trust me, this links everything
         left_edge.right_box = self

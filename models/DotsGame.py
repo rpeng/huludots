@@ -17,8 +17,10 @@ class DotsGame:
         edge_matrix[edge_x][edge_y].activate()
 
     def print_board(self):
-        pass
-
+        for row in xrange(cfg.game_rows-1):
+            for col in xrange(cfg.game_cols-1):
+                print self.squares[col][row].repr_num(),
+            print '\n'
 
 def generate_matrix(obj, rows, cols):
     obj_matrix = []
@@ -45,4 +47,7 @@ def create_new_game():
     edge_cols = generate_matrix(HorizontalEdge, cfg.game_rows, cfg.game_cols-1)
     squares = generate_matrix(Square, cfg.game_rows-1, cfg.game_cols-1)
     link_squares(edge_rows, edge_cols, squares)
-    return DotsGame(edge_rows, edge_cols, squares)
+    game = DotsGame(edge_rows, edge_cols, squares)
+    game.activate_edge(1,0,'vertical')
+    game.print_board()
+    return game
