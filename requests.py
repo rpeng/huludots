@@ -7,7 +7,6 @@ from tornado.web import RequestHandler
 import cfg
 from lib import session_maker
 
-
 class MoveRequest(RequestHandler):
     def post(self, game_token):
         self.write(game_token)
