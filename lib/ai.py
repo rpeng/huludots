@@ -12,7 +12,7 @@ class Move:
         return {
             'x': self.x,
             'y': self.y,
-            'type': self.orientation
+            'orientation': self.orientation
         }
 
 class RandomAI():
