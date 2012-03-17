@@ -2,6 +2,7 @@ import random
 
 import cfg
 
+
 class Move:
     def __init__(self, x, y, orientation):
         self.x = x

@@ -7,6 +7,9 @@ import cfg
 from lib import session_maker
 from models.DotsGame import create_new_game
 
+class MoveRequest(RequestHandler):
+    def post(self):
+        print self.request.arguments
 
 class TemplateRequest(RequestHandler):
 
