@@ -1,3 +1,4 @@
+import random
 import os
 
 from tornado.template import Loader
@@ -25,18 +26,16 @@ class TemplateRequest(RequestHandler):
 class StartRequest(TemplateRequest):
 
     def _generate_id(self):
-        return os.urandom(40).encode('base64').rstrip()
+        bits = "%032x" % random.getrandbits(128)
+        return bits
 
     def get(self):
         game_id = self._generate_id()
         session_maker.new_session(game_id)
-        self.write({
-            'status':'ok',
-            'game_token':game_id
-        })
+        self.redirect('/game/'+game_id)
 
 
-class StartPage(TemplateRequest):
-    def get(self):
-        board = create_new_game()
+class GamePage(TemplateRequest):
+    def get(self, game_token):
+        board = session_maker.load_session(str(game_token))
         self.render_template('start.html', board=board)
