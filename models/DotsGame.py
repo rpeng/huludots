@@ -1,12 +1,21 @@
 import cfg
 
 from models.Edge import VerticalEdge, HorizontalEdge, Square
+from lib.ai import RandomAI
 
 class DotsGame:
     def __init__(self, edge_rows, edge_cols, squares):
         self.edge_rows = edge_rows
         self.edge_cols = edge_cols
         self.squares = squares
+
+    def is_edge_active(self, edge_x, edge_y, orientation):
+        if orientation == 'horizontal':
+            edge_matrix = self.edge_rows
+        else:
+            edge_matrix = self.edge_cols
+
+        return edge_matrix[edge_x][edge_y].is_active
 
     def activate_edge(self, edge_x, edge_y, orientation):
         if orientation == 'horizontal':
@@ -48,6 +57,17 @@ def create_new_game():
     squares = generate_matrix(Square, cfg.game_rows-1, cfg.game_cols-1)
     link_squares(edge_rows, edge_cols, squares)
     game = DotsGame(edge_rows, edge_cols, squares)
-    game.activate_edge(1,0,'vertical')
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
+    RandomAI(game).generate_move()
     game.print_board()
     return game
