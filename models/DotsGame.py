@@ -16,14 +16,27 @@ class DotsGame:
             edge_matrix = self.edge_cols
 
         return edge_matrix[edge_x][edge_y].is_active
-
+    
     def activate_edge(self, edge_x, edge_y, orientation):
         if orientation == 'horizontal':
-            edge_matrix = self.edge_rows
+            edge = self.edge_rows[edge_x][edge_y] 
+            coords = []
+            adj_boxes = {'top_box': -1, 'bottom_box': 0}
+            for box_name, box_y in adj_boxes.items():
+                box = getattr(edge, box_name)
+                if box is not None and box.is_complete():
+                    coords.append(edge_x, edge_y + box_y)
+            return coords
         else:
-            edge_matrix = self.edge_cols
+            edge = self.edge_rows[edge_x][edge_y] 
+            coords = []
+            adj_boxes = {'left_box': -1, 'right_box': 0}
+            for box_name, box_x in adj_boxes.items():
+                box = getattr(edge, box_name)
+                if box is not None and box.is_complete():
+                    coords.append(edge_x + box_x, edge_y)
+            return coords
 
-        edge_matrix[edge_x][edge_y].activate()
 
     def print_board(self):
         for row in xrange(cfg.game_rows-1):
@@ -36,9 +49,9 @@ class DotsGame:
 
 def generate_matrix(obj, rows, cols):
     obj_matrix = []
-    for count in xrange(rows):
+    for row_count in xrange(rows):
         obj_row = []
-        for count in xrange(cols):
+        for col_count in xrange(cols):
             obj_row.append(obj())
         obj_matrix.append(obj_row)
     return obj_matrix
