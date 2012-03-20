@@ -52,5 +52,5 @@ class Square:
                 self.bottom_edge.is_active and\
                 self.top_edge.is_active
 
-    def __init__(self, x, y):
+    def __init__(self):
         self.owner = None
