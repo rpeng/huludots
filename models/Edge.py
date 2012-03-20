@@ -4,6 +4,7 @@ class Edge:
 
     def activate(self):
         self.is_active = True
+        return self.status()
 
 class VerticalEdge(Edge):
     def __init__(self, left=None, right=None):
@@ -11,11 +12,16 @@ class VerticalEdge(Edge):
         self.right_box = right
         Edge.__init__(self)
 
+    def status(self):
+        box_left = self.left_box
+        box_right = self.right_box
+
 class HorizontalEdge(Edge):
     def __init__(self, top=None, bottom=None):
         self.top_box = top
         self.bottom_box = bottom
         Edge.__init__(self)
+
 
 class Square:
 
@@ -40,3 +46,12 @@ class Square:
         top_edge.bottom_box = self
         self.bottom_edge = bottom_edge
         bottom_edge.top_box = self
+
+    def is_complete(self):
+        return self.left_edge.is_active and\
+                self.right_edge.is_active and\
+                self.bottom_edge.is_active and\
+                self.top_edge.is_active
+
+    def __init__(self):
+        self.owner = None

@@ -31,6 +31,9 @@ class DotsGame:
                 print self.squares[col][row].repr_num(),
             print '\n'
 
+    def print_ownership(self):
+        pass
+
 def generate_matrix(obj, rows, cols):
     obj_matrix = []
     for count in xrange(rows):
