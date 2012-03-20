@@ -16,8 +16,7 @@ function makeMove(event) {
     $.post('move/', data, showMove);
 }
 
-function showMove(jsonData) {
-    var data = $.parseJSON(jsonData);
+function showMove(data) {
     var x = data['x'];
     var y = data['y'];
     var ori = data['orientation'];

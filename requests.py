@@ -5,11 +5,20 @@ from tornado.template import Loader
 from tornado.web import RequestHandler
 
 import cfg
-from lib import session_maker
+from lib import session_maker, ai
 
 class MoveRequest(RequestHandler):
     def post(self, game_token):
-        self.write(game_token)
+        game_token = str(game_token)
+        board = session_maker.load_session(game_token)
+        x = int(self.get_argument('x'))
+        y = int(self.get_argument('y'))
+        ori = self.get_argument('orientation')
+        board.activate_edge(x, y, ori)
+        move = ai.RandomAI(board).generate_move()
+        session_maker.save_session(game_token, board)
+        self.write(move.to_dict())
+
 
 class TemplateRequest(RequestHandler):
 

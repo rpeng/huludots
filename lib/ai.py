@@ -27,7 +27,7 @@ class RandomAI():
                 continue
             else:
                 self.game.activate_edge(x, y, orientation)
-                break
+                return Move(x, y, orientation)
 
     def __init__(self, game):
         self.game = game

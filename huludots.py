@@ -16,8 +16,8 @@ def get_application():
             "debug": True
         }
         application = tornado.web.Application([
-            (r'/game/(.+)/', GamePage),
             (r'/game/(.+)/move/', MoveRequest),
+            (r'/game/(.+)/', GamePage),
             (r'/?', StartRequest),
         ], **settings)
 
